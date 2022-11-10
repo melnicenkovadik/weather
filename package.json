@@ -1,0 +1,43 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "keywords": [],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "formik": "^2.2.9",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2",
+    "react-open-weather": "^0.5.2",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "format": "prettier --write  \\\"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\\\""
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "singleQuote": true,
+    "printWidth": 100,
+    "arrowParens": "avoid"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
