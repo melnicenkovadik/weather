@@ -1,14 +1,15 @@
 // @ts-ignore
 import ReactWeather from "react-open-weather";
 import "react-open-weather/lib/css/ReactWeather.css";
-import {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {Params, useNavigate, useParams} from "react-router-dom";
 
 export default function App() {
     const {city}: Params = useParams()
     const [place, setPlace] = useState<string>(city && city?.length > 2 ? city : "Kyiv");
+    const [timer, setTimer] = useState(false)
     const navigate = useNavigate()
-    const refReactWeather = useRef<HTMLDivElement>(null)
+    const refReactWeather = useRef(null)
 
     const setCityName = (e: ChangeEvent<HTMLInputElement>) => {
         setPlace(e.target.value);
@@ -20,6 +21,28 @@ export default function App() {
     function resetHandler() {
         setPlace('')
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTimer(true)
+        }, 0)
+        if (timer && refReactWeather.current !== null) {
+            // @ts-ignore
+            const text = refReactWeather?.current?.textContent
+            if (text.includes('Rain') || text.includes('Clouds')) {
+                const desc = document.querySelectorAll('.rw-desc')
+                desc.forEach((node) => {
+                    if (node.textContent === 'Rain') {
+                        node.textContent = 'Best day to sell an umbrella'
+                    }
+                    if (node.textContent === 'Clouds') {
+                        node.textContent = 'Best day to sell a jacket'
+                    }
+                })
+            }
+        }
+    });
+
 
     return (
         <div className="App">
@@ -33,20 +56,16 @@ export default function App() {
                         Reset
                     </button>
                 </div>
-                {
-                    city && city?.length > 2 && (
-                        <div ref={refReactWeather}>
-                            <ReactWeather
-                                forecast="5days"
-                                apikey={process.env.REACT_APP_WEATHER_API_KEY}
-                                type="city"
-                                city={city}
-                                units="metric"
-                            />
-                        </div>
-                    )
-                }
 
+                <div ref={timer ? refReactWeather : undefined}>
+                    <ReactWeather
+                        forecast="5days"
+                        apikey={process.env.REACT_APP_WEATHER_API_KEY}
+                        type="city"
+                        city={city}
+                        units="metric"
+                    />
+                </div>
             </form>
         </div>
 
